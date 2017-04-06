@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `Proj4` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `Proj4`;
+CREATE DATABASE  IF NOT EXISTS `Proj4_keys` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `Proj4_keys`;
 -- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
 --
 -- Host: localhost    Database: Proj4
