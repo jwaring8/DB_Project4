@@ -1,4 +1,4 @@
-USE universitydb2;
+USE proj4_keys;
 
 #Add primary keys
 ALTER TABLE STUDENT ADD PRIMARY KEY (id);    
