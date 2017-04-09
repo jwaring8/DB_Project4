@@ -2,6 +2,15 @@ USE Proj4 -- Database without keys/indexes
 
 -- Query 4: 
 
+SELECT s.sname
+FROM STUDENT AS s, TRANSCRIPT AS r, TEACHING AS t
+WHERE t.profId=491584 AND r.crsCode=t.crsCode AND r.studId=s.id;
+
 -- Query 5:
+
+SELECT s.sname
+FROM STUDENT AS s, TRANSCRIPT AS t, COURSE AS c
+WHERE t.crsCode=c.crsCode AND c.deptId='deptId664077' AND t.studId=s.id
+      AND c.deptId!='deptId424969';
 
 -- Query 6:
