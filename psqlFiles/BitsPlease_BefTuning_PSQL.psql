@@ -1,4 +1,4 @@
-USE Proj4 -- Database without keys/indexes
+USE Proj4; -- Database without keys/indexes
 
 -- Query 4: 
 
@@ -14,3 +14,8 @@ WHERE t.crsCode=c.crsCode AND c.deptId='deptId664077' AND t.studId=s.id
       AND c.deptId!='deptId424969';
 
 -- Query 6:
+SELECT s.sname 
+FROM STUDENT AS s, COURSE AS c, TRANSCRIPT AS t
+WHERE t.crsCode=c.crsCode AND t.studId=s.id AND c.deptId='deptId424969'
+GROUP BY s.sname
+HAVING COUNT(*) = (SELECT COUNT(*) FROM COURSE WHERE COURSE.deptId='deptId424969');
