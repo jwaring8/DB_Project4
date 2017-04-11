@@ -1,4 +1,4 @@
-                                             QUERY PLAN                                             
+                                             QUERY 1 PLAN                                             
 ----------------------------------------------------------------------------------------------------
  Seq Scan on student  (cost=0.00..218.00 rows=1 width=10) (actual time=0.016..1.171 rows=1 loops=1)
    Filter: (id = 545899)
@@ -7,7 +7,7 @@
  Execution time: 1.201 ms
 (5 rows)
 
-                                              QUERY PLAN                                              
+                                              QUERY 2 PLAN                                              
 ------------------------------------------------------------------------------------------------------
  Seq Scan on student  (cost=0.00..243.00 rows=21 width=10) (actual time=0.122..1.748 rows=18 loops=1)
    Filter: ((id >= 15192) AND (id <= 17138))
@@ -16,7 +16,7 @@
  Execution time: 1.763 ms
 (5 rows)
 
-                                                    QUERY PLAN                                                    
+                                                    QUERY 3 PLAN                                                    
 ------------------------------------------------------------------------------------------------------------------
  Hash Semi Join  (cost=109.54..328.83 rows=3 width=10) (actual time=1.194..2.648 rows=2 loops=1)
    Hash Cond: (student.id = transcript.studid)
@@ -30,7 +30,7 @@
  Execution time: 2.666 ms
 (10 rows)
 
-                                                           QUERY PLAN                                                           
+                                                           QUERY 4 PLAN                                                           
 --------------------------------------------------------------------------------------------------------------------------------
  Hash Join  (cost=244.65..475.30 rows=15 width=10) (actual time=2.024..3.699 rows=11 loops=1)
    Hash Cond: (s.id = r.studid)
@@ -49,7 +49,7 @@
  Execution time: 3.724 ms
 (15 rows)
 
-                                                           QUERY PLAN                                                           
+                                                           QUERY 5 PLAN                                                           
 --------------------------------------------------------------------------------------------------------------------------------
  Hash Join  (cost=166.82..397.34 rows=2 width=10) (actual time=1.696..3.458 rows=2 loops=1)
    Hash Cond: (s.id = t.studid)
@@ -68,7 +68,7 @@
  Execution time: 3.487 ms
 (15 rows)
 
-                                                                 QUERY PLAN                                                                 
+                                                                 QUERY 6 PLAN                                                                 
 --------------------------------------------------------------------------------------------------------------------------------------------
  GroupAggregate  (cost=438.38..438.41 rows=2 width=10) (actual time=5.305..5.308 rows=3 loops=1)
    Group Key: s.sname
