@@ -1,8 +1,8 @@
-USE Proj4; -- Database without keys/indexes
-
+-- Be sure to use the database Proj4
 -- Author: Phillip Griggs
 -- Query 1:
 
+EXPLAIN ANALYZE
 SELECT sname 
 FROM STUDENT
 WHERE id = '545899';
@@ -10,6 +10,7 @@ WHERE id = '545899';
 -- Author: Phillip Griggs
 -- Query 2:
 
+EXPLAIN ANALYZE
 SELECT sname 
 FROM STUDENT
 WHERE id BETWEEN '15192' AND '17138';
@@ -17,6 +18,7 @@ WHERE id BETWEEN '15192' AND '17138';
 -- Author: James Griffin
 -- Query 3:
 
+EXPLAIN ANALYZE
 SELECT sname
 FROM STUDENT 
 WHERE id = ANY (SELECT studId 
@@ -26,6 +28,7 @@ WHERE id = ANY (SELECT studId
 -- Author: James Griffin
 -- Query 4: 
 
+EXPLAIN ANALYZE
 SELECT s.sname
 FROM STUDENT AS s, TRANSCRIPT AS r, TEACHING AS t
 WHERE t.profId=491584 AND r.crsCode=t.crsCode AND r.studId=s.id;
@@ -33,6 +36,7 @@ WHERE t.profId=491584 AND r.crsCode=t.crsCode AND r.studId=s.id;
 -- Author: 
 -- Query 5:
 
+EXPLAIN ANALYZE
 SELECT s.sname
 FROM STUDENT AS s, TRANSCRIPT AS t, COURSE AS c
 WHERE t.crsCode=c.crsCode AND c.deptId='deptId664077' AND t.studId=s.id
@@ -40,6 +44,8 @@ WHERE t.crsCode=c.crsCode AND c.deptId='deptId664077' AND t.studId=s.id
 
 -- Author:
 -- Query 6:
+
+EXPLAIN ANALYZE
 SELECT s.sname 
 FROM STUDENT AS s, COURSE AS c, TRANSCRIPT AS t
 WHERE t.crsCode=c.crsCode AND t.studId=s.id AND c.deptId='deptId424969'
