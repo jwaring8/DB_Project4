@@ -1,19 +1,54 @@
+-- Using database Proj4_Keys
 
-
--- Author:
+-- Author: Phillip Griggs
 -- Query 1:
 
--- Author:
+EXPLAIN ANALYZE
+SELECT s.sname 
+FROM STUDENT AS s 
+WHERE s.id = '545899';
+
+-- Author: Phillip Griggs
 -- Query 2:
 
--- Author:
+EXPLAIN ANALYZE
+SELECT s.sname
+FROM STUDENT AS s
+WHERE s.id BETWEEN '15192' AND '17138';
+
+-- Author: James Griffin
 -- Query 3:
 
--- Author:
+EXPLAIN ANALYZE
+SELECT s.sname
+FROM STUDENT AS s
+WHERE s.id = ANY (SELECT sid.studId
+            FROM TRANSCRIPT AS sid
+            WHERE sid.crsCode = 'crsCode902901');
+ 
+-- Author: James Griffin
 -- Query 4:
 
--- Author:
+EXPLAIN ANALYZE
+SELECT s.sname
+FROM STUDENT AS s INNER JOIN TRANSCRIPT AS r ON r.studId=s.id INNER JOIN TEACHING AS t ON r.crsCode=t.crsCode
+WHERE t.profId=491584;
+
+-- Author: Asheton Harrell
 -- Query 5:
 
--- Author 
+EXPLAIN ANALYZE
+SELECT s.sname
+FROM STUDENT AS s INNER JOIN TRANSCRIPT AS t ON s.id=t.studId INNER JOIN COURSE AS c ON t.crsCode=c.crsCode
+WHERE c.deptId='deptId664077' AND c.deptId!='deptId424969';
+
+
+-- Author: Asheton Harrell
 -- Query 6:
+
+EXPLAIN ANALYZE
+SELECT s.sname 
+FROM STUDENT AS s INNER JOIN TRANSCRIPT AS t ON t.studId=s.id INNER JOIN COURSE AS c ON t.crsCode=c.crsCode
+WHERE c.deptId='deptId424969'
+GROUP BY s.sname
+HAVING COUNT(*) = (SELECT COUNT(crsCode) FROM COURSE WHERE deptId='deptId424969');
