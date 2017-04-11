@@ -1,23 +1,25 @@
 -- Using database Proj4_Keys
-
+-------------------------------------------------------------------------------------------------
 -- Author: Phillip Griggs
--- Query 1:
+-- Query 1: List the name of the student with id equal to v1 (id).
 
 EXPLAIN ANALYZE
 SELECT s.sname 
 FROM STUDENT AS s 
 WHERE s.id = '545899';
 
+-------------------------------------------------------------------------------------------------
 -- Author: Phillip Griggs
--- Query 2:
+-- Query 2: List the names of students with id in the range of v2 (id) to v3 (inclusive).
 
 EXPLAIN ANALYZE
 SELECT s.sname
 FROM STUDENT AS s
 WHERE s.id BETWEEN '15192' AND '17138';
 
+-------------------------------------------------------------------------------------------------
 -- Author: James Griffin
--- Query 3:
+-- Query 3: List the names of students who have taken course v4 (crsCode).
 
 EXPLAIN ANALYZE
 SELECT s.sname
@@ -26,25 +28,27 @@ WHERE s.id = ANY (SELECT sid.studId
             FROM TRANSCRIPT AS sid
             WHERE sid.crsCode = 'crsCode902901');
  
+ -------------------------------------------------------------------------------------------------
 -- Author: James Griffin
--- Query 4:
+-- Query 4: List the names of students who have taken a course taught by professor v5 (491584).
 
 EXPLAIN ANALYZE
 SELECT s.sname
 FROM STUDENT AS s INNER JOIN TRANSCRIPT AS r ON r.studId=s.id INNER JOIN TEACHING AS t ON r.crsCode=t.crsCode
 WHERE t.profId=491584;
 
+-------------------------------------------------------------------------------------------------
 -- Author: Asheton Harrell
--- Query 5:
+-- Query 5: List the names of students who have taken a course from department v6 (deptId), but not v7.
 
 EXPLAIN ANALYZE
 SELECT s.sname
 FROM STUDENT AS s INNER JOIN TRANSCRIPT AS t ON s.id=t.studId INNER JOIN COURSE AS c ON t.crsCode=c.crsCode
 WHERE c.deptId='deptId664077' AND c.deptId!='deptId424969';
 
-
+-------------------------------------------------------------------------------------------------
 -- Author: Asheton Harrell
--- Query 6:
+-- Query 6: List the names of students who have taken all courses offered by department v8 (deptId).
 
 EXPLAIN ANALYZE
 SELECT s.sname 
