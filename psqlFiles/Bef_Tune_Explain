@@ -1,0 +1,100 @@
+                                             QUERY PLAN                                             
+----------------------------------------------------------------------------------------------------
+ Seq Scan on student  (cost=0.00..218.00 rows=1 width=10) (actual time=0.016..1.171 rows=1 loops=1)
+   Filter: (id = 545899)
+   Rows Removed by Filter: 9999
+ Planning time: 0.048 ms
+ Execution time: 1.201 ms
+(5 rows)
+
+                                              QUERY PLAN                                              
+------------------------------------------------------------------------------------------------------
+ Seq Scan on student  (cost=0.00..243.00 rows=21 width=10) (actual time=0.122..1.748 rows=18 loops=1)
+   Filter: ((id >= 15192) AND (id <= 17138))
+   Rows Removed by Filter: 9982
+ Planning time: 0.040 ms
+ Execution time: 1.763 ms
+(5 rows)
+
+                                                    QUERY PLAN                                                    
+------------------------------------------------------------------------------------------------------------------
+ Hash Semi Join  (cost=109.54..328.83 rows=3 width=10) (actual time=1.194..2.648 rows=2 loops=1)
+   Hash Cond: (student.id = transcript.studid)
+   ->  Seq Scan on student  (cost=0.00..193.00 rows=10000 width=14) (actual time=0.008..0.925 rows=10000 loops=1)
+   ->  Hash  (cost=109.50..109.50 rows=3 width=4) (actual time=0.688..0.688 rows=2 loops=1)
+         Buckets: 1024  Batches: 1  Memory Usage: 9kB
+         ->  Seq Scan on transcript  (cost=0.00..109.50 rows=3 width=4) (actual time=0.398..0.686 rows=2 loops=1)
+               Filter: ((crscode)::text = 'crsCode902901'::text)
+               Rows Removed by Filter: 4998
+ Planning time: 0.131 ms
+ Execution time: 2.666 ms
+(10 rows)
+
+                                                           QUERY PLAN                                                           
+--------------------------------------------------------------------------------------------------------------------------------
+ Hash Join  (cost=244.65..475.30 rows=15 width=10) (actual time=2.024..3.699 rows=11 loops=1)
+   Hash Cond: (s.id = r.studid)
+   ->  Seq Scan on student s  (cost=0.00..193.00 rows=10000 width=14) (actual time=0.008..0.937 rows=10000 loops=1)
+   ->  Hash  (cost=244.46..244.46 rows=15 width=4) (actual time=1.728..1.728 rows=11 loops=1)
+         Buckets: 1024  Batches: 1  Memory Usage: 9kB
+         ->  Hash Join  (cost=103.56..244.46 rows=15 width=4) (actual time=0.538..1.726 rows=11 loops=1)
+               Hash Cond: ((r.crscode)::text = (t.crscode)::text)
+               ->  Seq Scan on transcript r  (cost=0.00..97.00 rows=5000 width=17) (actual time=0.005..0.494 rows=5000 loops=1)
+               ->  Hash  (cost=103.50..103.50 rows=5 width=13) (actual time=0.518..0.518 rows=2 loops=1)
+                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                     ->  Seq Scan on teaching t  (cost=0.00..103.50 rows=5 width=13) (actual time=0.297..0.516 rows=2 loops=1)
+                           Filter: (profid = 491584)
+                           Rows Removed by Filter: 4998
+ Planning time: 0.420 ms
+ Execution time: 3.724 ms
+(15 rows)
+
+                                                           QUERY PLAN                                                           
+--------------------------------------------------------------------------------------------------------------------------------
+ Hash Join  (cost=166.82..397.34 rows=2 width=10) (actual time=1.696..3.458 rows=2 loops=1)
+   Hash Cond: (s.id = t.studid)
+   ->  Seq Scan on student s  (cost=0.00..193.00 rows=10000 width=14) (actual time=0.008..0.914 rows=10000 loops=1)
+   ->  Hash  (cost=166.80..166.80 rows=2 width=4) (actual time=1.547..1.547 rows=2 loops=1)
+         Buckets: 1024  Batches: 1  Memory Usage: 9kB
+         ->  Hash Join  (cost=51.03..166.80 rows=2 width=4) (actual time=0.704..1.534 rows=2 loops=1)
+               Hash Cond: ((t.crscode)::text = (c.crscode)::text)
+               ->  Seq Scan on transcript t  (cost=0.00..97.00 rows=5000 width=17) (actual time=0.004..0.475 rows=5000 loops=1)
+               ->  Hash  (cost=51.02..51.02 rows=1 width=13) (actual time=0.435..0.435 rows=1 loops=1)
+                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                     ->  Seq Scan on course c  (cost=0.00..51.02 rows=1 width=13) (actual time=0.169..0.433 rows=1 loops=1)
+                           Filter: (((deptid)::text <> 'deptId424969'::text) AND ((deptid)::text = 'deptId664077'::text))
+                           Rows Removed by Filter: 2000
+ Planning time: 0.240 ms
+ Execution time: 3.487 ms
+(15 rows)
+
+                                                                 QUERY PLAN                                                                 
+--------------------------------------------------------------------------------------------------------------------------------------------
+ GroupAggregate  (cost=438.38..438.41 rows=2 width=10) (actual time=5.305..5.308 rows=3 loops=1)
+   Group Key: s.sname
+   Filter: (count(*) = $0)
+   InitPlan 1 (returns $0)
+     ->  Aggregate  (cost=46.02..46.02 rows=1 width=8) (actual time=0.368..0.368 rows=1 loops=1)
+           ->  Seq Scan on course  (cost=0.00..46.01 rows=1 width=0) (actual time=0.028..0.363 rows=1 loops=1)
+                 Filter: ((deptid)::text = 'deptId424969'::text)
+                 Rows Removed by Filter: 2000
+   ->  Sort  (cost=392.35..392.36 rows=2 width=10) (actual time=4.922..4.923 rows=3 loops=1)
+         Sort Key: s.sname
+         Sort Method: quicksort  Memory: 25kB
+         ->  Hash Join  (cost=161.82..392.34 rows=2 width=10) (actual time=2.706..4.900 rows=3 loops=1)
+               Hash Cond: (s.id = t.studid)
+               ->  Seq Scan on student s  (cost=0.00..193.00 rows=10000 width=14) (actual time=0.013..1.462 rows=10000 loops=1)
+               ->  Hash  (cost=161.80..161.80 rows=2 width=4) (actual time=2.079..2.079 rows=3 loops=1)
+                     Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                     ->  Hash Join  (cost=46.03..161.80 rows=2 width=4) (actual time=0.711..2.065 rows=3 loops=1)
+                           Hash Cond: ((t.crscode)::text = (c.crscode)::text)
+                           ->  Seq Scan on transcript t  (cost=0.00..97.00 rows=5000 width=17) (actual time=0.006..0.728 rows=5000 loops=1)
+                           ->  Hash  (cost=46.01..46.01 rows=1 width=13) (actual time=0.402..0.402 rows=1 loops=1)
+                                 Buckets: 1024  Batches: 1  Memory Usage: 9kB
+                                 ->  Seq Scan on course c  (cost=0.00..46.01 rows=1 width=13) (actual time=0.015..0.399 rows=1 loops=1)
+                                       Filter: ((deptid)::text = 'deptId424969'::text)
+                                       Rows Removed by Filter: 2000
+ Planning time: 0.455 ms
+ Execution time: 5.366 ms
+(26 rows)
+
