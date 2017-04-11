@@ -1,11 +1,36 @@
 USE Proj4; -- Database without keys/indexes
 
+-- Author: Phillip Griggs
+-- Query 1:
+
+SELECT sname 
+FROM STUDENT
+WHERE id = '545899';
+
+-- Author: Phillip Griggs
+-- Query 2:
+
+SELECT sname 
+FROM STUDENT
+WHERE id BETWEEN '15192' AND '17138';
+
+-- Author: James Griffin
+-- Query 3:
+
+SELECT sname
+FROM STUDENT 
+WHERE id = ANY (SELECT studId 
+            FROM TRANSCRIPT 
+            WHERE crsCode = 'crsCode902901');
+
+-- Author: James Griffin
 -- Query 4: 
 
 SELECT s.sname
 FROM STUDENT AS s, TRANSCRIPT AS r, TEACHING AS t
 WHERE t.profId=491584 AND r.crsCode=t.crsCode AND r.studId=s.id;
 
+-- Author: 
 -- Query 5:
 
 SELECT s.sname
@@ -13,6 +38,7 @@ FROM STUDENT AS s, TRANSCRIPT AS t, COURSE AS c
 WHERE t.crsCode=c.crsCode AND c.deptId='deptId664077' AND t.studId=s.id
       AND c.deptId!='deptId424969';
 
+-- Author:
 -- Query 6:
 SELECT s.sname 
 FROM STUDENT AS s, COURSE AS c, TRANSCRIPT AS t
