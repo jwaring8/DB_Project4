@@ -50,20 +50,21 @@
 
                                                           QUERY 5 PLAN                                                           
 -------------------------------------------------------------------------------------------------------------------------------
- Nested Loop  (cost=51.31..167.62 rows=2 width=10) (actual time=1.280..3.244 rows=2 loops=1)
-   ->  Hash Join  (cost=51.03..166.80 rows=2 width=4) (actual time=1.255..3.163 rows=2 loops=1)
+ Nested Loop  (cost=51.31..167.62 rows=2 width=10) (actual time=1.120..2.414 rows=2 loops=1)
+   ->  Hash Join  (cost=51.03..166.80 rows=2 width=4) (actual time=1.093..2.364 rows=2 loops=1)
          Hash Cond: ((t.crscode)::text = (c.crscode)::text)
-         ->  Seq Scan on transcript t  (cost=0.00..97.00 rows=5000 width=17) (actual time=0.008..1.036 rows=5000 loops=1)
-         ->  Hash  (cost=51.02..51.02 rows=1 width=13) (actual time=0.825..0.825 rows=1 loops=1)
+         ->  Seq Scan on transcript t  (cost=0.00..97.00 rows=5000 width=17) (actual time=0.010..0.737 rows=5000 loops=1)
+         ->  Hash  (cost=51.02..51.02 rows=1 width=13) (actual time=0.655..0.655 rows=1 loops=1)
                Buckets: 1024  Batches: 1  Memory Usage: 9kB
-               ->  Seq Scan on course c  (cost=0.00..51.02 rows=1 width=13) (actual time=0.200..0.818 rows=1 loops=1)
+               ->  Seq Scan on course c  (cost=0.00..51.02 rows=1 width=13) (actual time=0.266..0.637 rows=1 loops=1)
                      Filter: (((deptid)::text <> 'deptId424969'::text) AND ((deptid)::text = 'deptId664077'::text))
                      Rows Removed by Filter: 2000
-   ->  Index Scan using student_pkey on student s  (cost=0.29..0.40 rows=1 width=14) (actual time=0.032..0.033 rows=1 loops=2)
+   ->  Index Scan using student_pkey on student s  (cost=0.29..0.40 rows=1 width=14) (actual time=0.017..0.017 rows=1 loops=2)
          Index Cond: (id = t.studid)
- Planning time: 0.718 ms
- Execution time: 3.324 ms
+ Planning time: 0.587 ms
+ Execution time: 2.476 ms
 (13 rows)
+
 
                                                                 QUERY 6 PLAN                                                                 
 -------------------------------------------------------------------------------------------------------------------------------------------
