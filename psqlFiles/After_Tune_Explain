@@ -1,4 +1,4 @@
-                                                       QUERY PLAN                                                        
+                                                       QUERY 1 PLAN                                                        
 -------------------------------------------------------------------------------------------------------------------------
  Index Scan using student_pkey on student s  (cost=0.29..8.30 rows=1 width=10) (actual time=0.026..0.027 rows=1 loops=1)
    Index Cond: (id = 545899)
@@ -6,7 +6,7 @@
  Execution time: 0.090 ms
 (4 rows)
 
-                                                      QUERY PLAN                                                       
+                                                      QUERY 2 PLAN                                                       
 -----------------------------------------------------------------------------------------------------------------------
  Bitmap Heap Scan on student s  (cost=4.50..55.05 rows=21 width=10) (actual time=0.031..0.089 rows=18 loops=1)
    Recheck Cond: ((id >= 15192) AND (id <= 17138))
@@ -17,7 +17,7 @@
  Execution time: 0.120 ms
 (7 rows)
 
-                                                          QUERY PLAN                                                           
+                                                          QUERY 3 PLAN                                                           
 -------------------------------------------------------------------------------------------------------------------------------
  Nested Loop  (cost=109.79..134.47 rows=3 width=10) (actual time=0.838..0.850 rows=2 loops=1)
    ->  HashAggregate  (cost=109.51..109.54 rows=3 width=4) (actual time=0.826..0.827 rows=2 loops=1)
@@ -31,7 +31,7 @@
  Execution time: 0.917 ms
 (10 rows)
 
-                                                           QUERY PLAN                                                           
+                                                           QUERY 4 PLAN                                                           
 --------------------------------------------------------------------------------------------------------------------------------
  Nested Loop  (cost=103.85..250.63 rows=15 width=10) (actual time=0.813..2.830 rows=11 loops=1)
    ->  Hash Join  (cost=103.56..244.46 rows=15 width=4) (actual time=0.799..2.667 rows=11 loops=1)
@@ -48,7 +48,7 @@
  Execution time: 2.866 ms
 (13 rows)
 
-                                                          QUERY PLAN                                                           
+                                                          QUERY 5 PLAN                                                           
 -------------------------------------------------------------------------------------------------------------------------------
  Nested Loop  (cost=51.31..167.62 rows=2 width=10) (actual time=1.280..3.244 rows=2 loops=1)
    ->  Hash Join  (cost=51.03..166.80 rows=2 width=4) (actual time=1.255..3.163 rows=2 loops=1)
@@ -65,7 +65,7 @@
  Execution time: 3.324 ms
 (13 rows)
 
-                                                                QUERY PLAN                                                                 
+                                                                QUERY 6 PLAN                                                                 
 -------------------------------------------------------------------------------------------------------------------------------------------
  GroupAggregate  (cost=208.65..208.69 rows=2 width=10) (actual time=3.581..3.588 rows=3 loops=1)
    Group Key: s.sname
